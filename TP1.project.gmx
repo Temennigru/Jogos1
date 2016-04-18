@@ -48,6 +48,7 @@
     <script>scripts\draw_hud.gml</script>
     <script>scripts\damage_player.gml</script>
     <script>scripts\damage.gml</script>
+    <script>scripts\grounded.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\Player</object>

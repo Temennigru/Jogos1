@@ -27,6 +27,10 @@
             <kind>1</kind>
             <string>life = 200
 shields = 100
+life_display = 200
+shields_display = 100
+display_update_rate = 10
+
 orientation = 1
 
 life_max = 200
@@ -37,7 +41,7 @@ lock = 0
 button_lock_z = 0
 button_lock_x = 0
 dash_count = -1
-atk_count = -1
+attack_count = -1
 
 tutorial = 0
 
@@ -47,6 +51,13 @@ shield_timer = 0
 
 dash_damage = 50
 attack_damage = 25
+
+attack_cooldown = 3
+dash_cooldown = 10
+attack_on_cd = 0
+dash_on_cd = 0
+
+can_move = 1
 </string>
           </argument>
         </arguments>
@@ -133,6 +144,55 @@ if (dash_count = 1) {
     dash_count--
 } else if (dash_count == 0) {
     dash_count--
+    dash_on_cd = dash_cooldown
+    lock = 0
+    can_move = 1
+    if(orientation = 0) {
+        sprite_index = stand_left
+    } else {
+        sprite_index = stand_right
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Attack
+
+if (attack_count = 1) {
+    if(orientation = 1) {
+        zealot_attack(orientation, attack_damage, x, y)
+    } else {
+        zealot_attack(orientation, attack_damage, x, y)
+    }
+    attack_count--
+} else if (attack_count &gt; 0) {
+    if(orientation = 1) {
+        sprite_index = attack_right
+    } else {
+        sprite_index = attack_left
+    }
+    attack_count--
+} else if (attack_count == 0) {
+    attack_count--
+    attack_on_cd = attack_cooldown
+    can_move = 1
     lock = 0
     if(orientation = 0) {
         sprite_index = stand_left
@@ -196,6 +256,68 @@ health = life
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Smoother display
+
+if(shields_display - display_update_rate &lt; shields) {
+    shields_display = shields
+} else {
+    shields_display -= display_update_rate
+}
+
+if(life_display - display_update_rate &lt; life) {
+    life_display = life
+} else {
+    life_display -= display_update_rate
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Cooldowns
+
+if(attack_on_cd &gt; 0) {
+    attack_on_cd--
+}
+
+if(dash_on_cd &gt; 0) {
+    dash_on_cd--
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="5" enumb="39">
       <action>
@@ -214,14 +336,16 @@ health = life
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(!lock) {
+            <string>if(can_move) {
 
     orientation = 1
-    
-    if(!place_free(x, y+2)) {
-        sprite_index = run_right
-    } else {
-        sprite_index = jump_right
+
+    if(!lock) {    
+        if(!place_free(x, y+2)) {
+            sprite_index = run_right
+        } else {
+            sprite_index = jump_right
+        }
     }
     
     if (place_free (x+15, y)) {x += 15}
@@ -248,14 +372,15 @@ health = life
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(!lock) {
+            <string>if(can_move) {
 
     orientation = 0
-    
-    if(!place_free(x, y+2)) {
-        sprite_index = run_left
-    } else {
-        sprite_index = jump_left
+    if(!lock) {
+        if(!place_free(x, y+2)) {
+            sprite_index = run_left
+        } else {
+            sprite_index = jump_left
+        }
     }
     
     if(place_free(x-15, y)) {
@@ -342,8 +467,8 @@ if(shields &gt; 0) {
 }
 
 draw_hud()
-draw_shields(shields / shields_max)
-draw_life(life / life_max)
+draw_shields(shields_display / shields_max)
+draw_life(life_display / life_max)
 </string>
           </argument>
         </arguments>
@@ -366,8 +491,9 @@ draw_life(life / life_max)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(lock == 0 &amp;&amp; dash_count &lt; 0 &amp;&amp; button_lock_z == 0) {
+            <string>if(lock == 0 &amp;&amp; dash_count &lt; 0 &amp;&amp; button_lock_z == 0 &amp;&amp; !dash_on_cd) {
     lock = 1
+    can_move = 0
     dash_count = 10
     button_lock_z = 1
 }
@@ -393,9 +519,12 @@ draw_life(life / life_max)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(lock == 0 &amp;&amp; atk_count &lt; 0 &amp;&amp; button_lock_x == 0) {
+            <string>if(lock == 0 &amp;&amp; attack_count &lt; 0 &amp;&amp; button_lock_x == 0 &amp;&amp; !attack_on_cd) {
     lock = 1
-    dash_count = 10
+    if(grounded()) {
+        can_move = 0
+    }
+    attack_count = 4
     button_lock_x = 1
 }
 </string>
