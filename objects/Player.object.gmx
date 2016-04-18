@@ -31,7 +31,7 @@ orientation = 1
 
 life_max = 200
 shields_max = 100
-shield_recharge = 5
+shield_recharge_rate = 1
 
 lock = 0
 button_lock_z = 0
@@ -42,8 +42,11 @@ atk_count = -1
 tutorial = 0
 
 
-shield_recharge = 10
+shield_recharge = 30
 shield_timer = 0
+
+dash_damage = 50
+attack_damage = 25
 </string>
           </argument>
         </arguments>
@@ -110,21 +113,21 @@ if(!place_free(x, y)) {
 
 if (dash_count = 1) {
     if(orientation = 1) {
-        zealot_attack(orientation, x, y)
+        zealot_attack(orientation, dash_damage, x, y)
     } else {
-        zealot_attack(orientation, x, y)
+        zealot_attack(orientation, dash_damage, x, y)
     }
     dash_count--
 } else if (dash_count &gt; 0) {
     if(orientation = 1) {
         sprite_index = dash_right
-        if(place_free(x+20, y) &amp;&amp; dash_count &gt;= 3) {
+        if(place_free(x+40, y) &amp;&amp; dash_count &gt;= 3) {
             x += 50
         }
     } else {
         sprite_index = dash_left
-        if(place_free(x-20, y) &amp;&amp; dash_count &gt;= 3) {
-            x -= 50
+        if(place_free(x-40, y) &amp;&amp; dash_count &gt;= 3) {
+            x -= 40
         }
     }
     dash_count--
@@ -160,13 +163,35 @@ if (dash_count = 1) {
             <string>// Shields
 
 if(shield_timer == 0) {
-    shields += shield_recharge
+    shields += shield_recharge_rate
     if(shields &gt; shields_max) {
         shields = shields_max
     }
 } else {
     shield_timer--
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Set global health to player health
+health = life
 </string>
           </argument>
         </arguments>
@@ -268,6 +293,28 @@ if(shield_timer == 0) {
     }
 }
 </string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="9">
+      <action>
+        <libid>1</libid>
+        <id>224</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_another_room</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>11</kind>
+            <room>game_over</room>
           </argument>
         </arguments>
       </action>
@@ -382,6 +429,29 @@ draw_life(life / life_max)
         sprite_index = jump_right
     }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="32">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>damage_player(30)
 </string>
           </argument>
         </arguments>

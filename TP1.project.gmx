@@ -6,6 +6,13 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
+    <sprites name="hud">
+      <sprite>sprites\shield_bar</sprite>
+      <sprite>sprites\life_bar</sprite>
+      <sprite>sprites\hud</sprite>
+      <sprite>sprites\hud_full</sprite>
+      <sprite>sprites\hud_help</sprite>
+    </sprites>
     <sprites name="zealot">
       <sprite>sprites\jump_left</sprite>
       <sprite>sprites\run_left</sprite>
@@ -24,17 +31,14 @@
     <sprite>sprites\Collision</sprite>
     <sprite>sprites\press_enter_to_start</sprite>
     <sprite>sprites\sprite12</sprite>
-    <sprites name="hud">
-      <sprite>sprites\shield_bar</sprite>
-      <sprite>sprites\life_bar</sprite>
-      <sprite>sprites\hud</sprite>
-    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
     <background>background\background1</background>
     <background>background\background2</background>
     <background>background\background3</background>
+    <background>background\background4</background>
+    <background>background\background5</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -42,6 +46,8 @@
     <script>scripts\draw_shields.gml</script>
     <script>scripts\draw_life.gml</script>
     <script>scripts\draw_hud.gml</script>
+    <script>scripts\damage_player.gml</script>
+    <script>scripts\damage.gml</script>
   </scripts>
   <objects name="objects">
     <object>objects\Player</object>
@@ -54,6 +60,7 @@
   <rooms name="rooms">
     <room>rooms\Title</room>
     <room>rooms\room0</room>
+    <room>rooms\game_over</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
