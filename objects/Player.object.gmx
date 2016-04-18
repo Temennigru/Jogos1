@@ -58,6 +58,8 @@ attack_on_cd = 0
 dash_on_cd = 0
 
 can_move = 1
+
+global.player_damage = 0
 </string>
           </argument>
         </arguments>
@@ -314,6 +316,54 @@ if(attack_on_cd &gt; 0) {
 if(dash_on_cd &gt; 0) {
     dash_on_cd--
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Broadcast coordinates
+
+global.player_x = x
+global.player_y = y
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Damage
+
+damage_player(global.player_damage)
+global.player_damage = 0
 </string>
           </argument>
         </arguments>
