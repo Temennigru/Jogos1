@@ -18,17 +18,26 @@
       <sprite>sprites\Shield</sprite>
       <sprite>sprites\Dash</sprite>
     </sprites>
+    <sprite>sprites\Collision</sprite>
+    <sprite>sprites\press_enter_to_start</sprite>
+    <sprite>sprites\sprite12</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
     <background>background\background1</background>
+    <background>background\background2</background>
+    <background>background\background3</background>
   </backgrounds>
   <paths name="paths"/>
   <objects name="objects">
     <object>objects\Player</object>
     <object>objects\controller</object>
+    <object>objects\Col</object>
+    <object>objects\object4</object>
+    <object>objects\Press_enter</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\Title</room>
     <room>rooms\room0</room>
   </rooms>
   <help>
