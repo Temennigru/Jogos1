@@ -3,10 +3,10 @@
   <spriteName>stand_right</spriteName>
   <solid>-1</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>1</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
-  <maskName>&lt;undefined&gt;</maskName>
+  <maskName>stand_left</maskName>
   <events>
     <event eventtype="0" enumb="0">
       <action>
@@ -25,8 +25,25 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>life = 20
-shields = 10
+            <string>life = 200
+shields = 100
+orientation = 1
+
+life_max = 200
+shields_max = 100
+shield_recharge = 5
+
+lock = 0
+button_lock_z = 0
+button_lock_x = 0
+dash_count = -1
+atk_count = -1
+
+tutorial = 0
+
+
+shield_recharge = 10
+shield_timer = 0
 </string>
           </argument>
         </arguments>
@@ -49,21 +66,30 @@ shields = 10
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (place_free(x, y+1)) {
-    gravity = 10
-    gravity_direction = 270
+            <string>// Gravity
+
+if (place_free(x, y+1)) {
+    gravity = 5
+    vspeed += gravity
 } else {
     gravity = 0
-    gravity_direction = 270
 }
 
-//vspeed += gravity
+if (place_free(x, y+vspeed)) {
+    y += vspeed
+} else {
+    move_contact_solid(270, vspeed-1)
+    vspeed = 0
+}
+
+if(!place_free(x, y)) {
+    move_contact_solid(direction, 12)
+}
+
 </string>
           </argument>
         </arguments>
       </action>
-    </event>
-    <event eventtype="4" ename="Col">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -80,7 +106,67 @@ shields = 10
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>move_contact_solid(direction, 12) vspeed=0
+            <string>// Dash
+
+if (dash_count = 1) {
+    if(orientation = 1) {
+        zealot_attack(orientation, x, y)
+    } else {
+        zealot_attack(orientation, x, y)
+    }
+    dash_count--
+} else if (dash_count &gt; 0) {
+    if(orientation = 1) {
+        sprite_index = dash_right
+        if(place_free(x+20, y) &amp;&amp; dash_count &gt;= 3) {
+            x += 50
+        }
+    } else {
+        sprite_index = dash_left
+        if(place_free(x-20, y) &amp;&amp; dash_count &gt;= 3) {
+            x -= 50
+        }
+    }
+    dash_count--
+} else if (dash_count == 0) {
+    dash_count--
+    lock = 0
+    if(orientation = 0) {
+        sprite_index = stand_left
+    } else {
+        sprite_index = stand_right
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Shields
+
+if(shield_timer == 0) {
+    shields += shield_recharge
+    if(shields &gt; shields_max) {
+        shields = shields_max
+    }
+} else {
+    shield_timer--
+}
 </string>
           </argument>
         </arguments>
@@ -89,34 +175,6 @@ shields = 10
     <event eventtype="5" enumb="39">
       <action>
         <libid>1</libid>
-        <id>541</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_sprite_set</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>5</kind>
-            <sprite>run_right</sprite>
-          </argument>
-          <argument>
-            <kind>0</kind>
-            <string>0</string>
-          </argument>
-          <argument>
-            <kind>0</kind>
-            <string>10</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
         <id>603</id>
         <kind>7</kind>
         <userelative>0</userelative>
@@ -131,7 +189,18 @@ shields = 10
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (place_free (x+15, y)) {x += 15}
+            <string>if(!lock) {
+
+    orientation = 1
+    
+    if(!place_free(x, y+2)) {
+        sprite_index = run_right
+    } else {
+        sprite_index = jump_right
+    }
+    
+    if (place_free (x+15, y)) {x += 15}
+}
 </string>
           </argument>
         </arguments>
@@ -140,32 +209,40 @@ shields = 10
     <event eventtype="5" enumb="37">
       <action>
         <libid>1</libid>
-        <id>541</id>
-        <kind>0</kind>
+        <id>603</id>
+        <kind>7</kind>
         <userelative>0</userelative>
         <isquestion>0</isquestion>
         <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_sprite_set</functionname>
+        <exetype>2</exetype>
+        <functionname></functionname>
         <codestring></codestring>
         <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
           <argument>
-            <kind>5</kind>
-            <sprite>run_left</sprite>
-          </argument>
-          <argument>
-            <kind>0</kind>
-            <string>0</string>
-          </argument>
-          <argument>
-            <kind>0</kind>
-            <string>10</string>
+            <kind>1</kind>
+            <string>if(!lock) {
+
+    orientation = 0
+    
+    if(!place_free(x, y+2)) {
+        sprite_index = run_left
+    } else {
+        sprite_index = jump_left
+    }
+    
+    if(place_free(x-15, y)) {
+        x -= 15
+    }
+}
+</string>
           </argument>
         </arguments>
       </action>
+    </event>
+    <event eventtype="5" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -182,14 +259,182 @@ shields = 10
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(place_free(x-15, y)) {x -= 15}
+            <string>if(!lock) {
+
+    if(orientation = 0) {
+        sprite_index = stand_left
+    } else {
+        sprite_index = stand_right
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_self()
+if(shields &gt; 0) {
+    draw_sprite(Shield, 0, x-10, y)
+}
+
+draw_hud()
+draw_shields(shields / shields_max)
+draw_life(life / life_max)
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="90">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(lock == 0 &amp;&amp; dash_count &lt; 0 &amp;&amp; button_lock_z == 0) {
+    lock = 1
+    dash_count = 10
+    button_lock_z = 1
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="88">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(lock == 0 &amp;&amp; atk_count &lt; 0 &amp;&amp; button_lock_x == 0) {
+    lock = 1
+    dash_count = 10
+    button_lock_x = 1
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="67">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(!place_free(x, y+2) &amp;&amp; !lock) {
+    vspeed = -20
+    
+    if(orientation == 0) {
+        sprite_index = jump_left
+    } else {
+        sprite_index = jump_right
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="10" enumb="90">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>button_lock_z = 0
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="10" enumb="88">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>button_lock_x = 0
 </string>
           </argument>
         </arguments>
       </action>
     </event>
   </events>
-  <PhysicsObject>-1</PhysicsObject>
+  <PhysicsObject>0</PhysicsObject>
   <PhysicsObjectSensor>0</PhysicsObjectSensor>
   <PhysicsObjectShape>1</PhysicsObjectShape>
   <PhysicsObjectDensity>0.5</PhysicsObjectDensity>
@@ -200,10 +445,5 @@ shields = 10
   <PhysicsObjectFriction>0.200000002980232</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
-  <PhysicsShapePoints>
-    <point>-40,-36</point>
-    <point>40,-36</point>
-    <point>40,36</point>
-    <point>-40,36</point>
-  </PhysicsShapePoints>
+  <PhysicsShapePoints/>
 </object>

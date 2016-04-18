@@ -7,7 +7,6 @@
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprites name="zealot">
-      <sprite>sprites\attack_left</sprite>
       <sprite>sprites\jump_left</sprite>
       <sprite>sprites\run_left</sprite>
       <sprite>sprites\stand_left</sprite>
@@ -15,12 +14,21 @@
       <sprite>sprites\run_right</sprite>
       <sprite>sprites\stand_right</sprite>
       <sprite>sprites\jump_right</sprite>
+      <sprite>sprites\dash_right</sprite>
+      <sprite>sprites\dash_left</sprite>
+      <sprite>sprites\attack_left</sprite>
+      <sprite>sprites\hit_left</sprite>
+      <sprite>sprites\hit_right</sprite>
       <sprite>sprites\Shield</sprite>
-      <sprite>sprites\Dash</sprite>
     </sprites>
     <sprite>sprites\Collision</sprite>
     <sprite>sprites\press_enter_to_start</sprite>
     <sprite>sprites\sprite12</sprite>
+    <sprites name="hud">
+      <sprite>sprites\shield_bar</sprite>
+      <sprite>sprites\life_bar</sprite>
+      <sprite>sprites\hud</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -29,12 +37,19 @@
     <background>background\background3</background>
   </backgrounds>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\zealot_attack.gml</script>
+    <script>scripts\draw_shields.gml</script>
+    <script>scripts\draw_life.gml</script>
+    <script>scripts\draw_hud.gml</script>
+  </scripts>
   <objects name="objects">
     <object>objects\Player</object>
     <object>objects\controller</object>
     <object>objects\Col</object>
     <object>objects\object4</object>
     <object>objects\Press_enter</object>
+    <object>objects\player_hit_left</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\Title</room>
