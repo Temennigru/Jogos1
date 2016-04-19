@@ -6,42 +6,25 @@
   <NewExtensions>
     <extension index="0">extensions\Sci-fi Graphics Mega Pack</extension>
   </NewExtensions>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\Charge</sound>
+    <sound>sound\Music</sound>
+    <sound>sound\Hit_1</sound>
+    <sound>sound\Hit_2</sound>
+    <sound>sound\Hit_3</sound>
+    <sound>sound\Hit_4</sound>
+    <sound>sound\Hit_5</sound>
+    <sound>sound\Attack_1</sound>
+    <sound>sound\Attack_2</sound>
+    <sound>sound\Attack_3</sound>
+    <sound>sound\Attack_4</sound>
+    <sound>sound\Attack_5</sound>
+    <sound>sound\zombie_attack</sound>
+    <sound>sound\Music_loop</sound>
+    <sound>sound\Music2</sound>
+    <sound>sound\player_death</sound>
+  </sounds>
   <sprites name="sprites">
-    <sprites name="hud">
-      <sprite>sprites\shield_bar</sprite>
-      <sprite>sprites\life_bar</sprite>
-      <sprite>sprites\hud</sprite>
-      <sprite>sprites\hud_full</sprite>
-      <sprite>sprites\hud_help</sprite>
-    </sprites>
-    <sprites name="zealot">
-      <sprite>sprites\jump_left</sprite>
-      <sprite>sprites\run_left</sprite>
-      <sprite>sprites\stand_left</sprite>
-      <sprite>sprites\attack_right</sprite>
-      <sprite>sprites\run_right</sprite>
-      <sprite>sprites\stand_right</sprite>
-      <sprite>sprites\jump_right</sprite>
-      <sprite>sprites\dash_right</sprite>
-      <sprite>sprites\dash_left</sprite>
-      <sprite>sprites\attack_left</sprite>
-      <sprite>sprites\hit_left</sprite>
-      <sprite>sprites\hit_right</sprite>
-      <sprite>sprites\Shield</sprite>
-    </sprites>
-    <sprites name="zombie">
-      <sprite>sprites\zombie_walk_left</sprite>
-      <sprite>sprites\zombie_walk_right</sprite>
-      <sprite>sprites\zombie_attack_left</sprite>
-      <sprite>sprites\zombie_attack_right</sprite>
-      <sprite>sprites\zombie_death</sprite>
-      <sprite>sprites\zombie_stand_left</sprite>
-      <sprite>sprites\zombie_stand_right</sprite>
-    </sprites>
-    <sprite>sprites\Collision</sprite>
-    <sprite>sprites\press_enter_to_start</sprite>
-    <sprite>sprites\sprite12</sprite>
     <sprites name="Sci-fi Mega Pack">
       <sprites name="Celestials">
         <sprite>sprites\spr_smp_moon_1</sprite>
@@ -140,6 +123,45 @@
         <sprite>sprites\spr_smp_station_table</sprite>
       </sprites>
     </sprites>
+    <sprites name="hud">
+      <sprite>sprites\shield_bar</sprite>
+      <sprite>sprites\life_bar</sprite>
+      <sprite>sprites\hud</sprite>
+      <sprite>sprites\hud_full</sprite>
+      <sprite>sprites\hud_help</sprite>
+    </sprites>
+    <sprites name="zealot">
+      <sprite>sprites\jump_left</sprite>
+      <sprite>sprites\run_left</sprite>
+      <sprite>sprites\stand_left</sprite>
+      <sprite>sprites\attack_right</sprite>
+      <sprite>sprites\run_right</sprite>
+      <sprite>sprites\stand_right</sprite>
+      <sprite>sprites\die_right</sprite>
+      <sprite>sprites\die_left</sprite>
+      <sprite>sprites\jump_right</sprite>
+      <sprite>sprites\dash_right</sprite>
+      <sprite>sprites\dash_left</sprite>
+      <sprite>sprites\attack_left</sprite>
+      <sprite>sprites\hit_left</sprite>
+      <sprite>sprites\hit_right</sprite>
+      <sprite>sprites\Shield</sprite>
+    </sprites>
+    <sprites name="zombie">
+      <sprite>sprites\zombie_walk_left</sprite>
+      <sprite>sprites\zombie_walk_right</sprite>
+      <sprite>sprites\zombie_attack_left</sprite>
+      <sprite>sprites\zombie_attack_right</sprite>
+      <sprite>sprites\zombie_death</sprite>
+      <sprite>sprites\zombie_stand_left</sprite>
+      <sprite>sprites\zombie_stand_right</sprite>
+    </sprites>
+    <sprite>sprites\Collision</sprite>
+    <sprite>sprites\press_enter_to_start</sprite>
+    <sprite>sprites\sprite12</sprite>
+    <sprite>sprites\hit</sprite>
+    <sprite>sprites\death_sprite</sprite>
+    <sprite>sprites\tp</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\background0</background>
@@ -159,6 +181,7 @@
       <background>background\bg_smp_misc_tiles</background>
       <background>background\bg_smp_stars</background>
     </backgrounds>
+    <background>background\background15</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -171,17 +194,33 @@
     <script>scripts\grounded.gml</script>
   </scripts>
   <objects name="objects">
-    <object>objects\Player</object>
+    <objects name="Player">
+      <object>objects\Player</object>
+      <object>objects\player_hit_right</object>
+      <object>objects\player_hit_left</object>
+      <object>objects\animate_hit</object>
+      <object>objects\player_death_left</object>
+      <object>objects\player_death_right</object>
+    </objects>
+    <objects name="Enemies">
+      <object>objects\zombie</object>
+      <object>objects\zombie_explode</object>
+    </objects>
     <object>objects\controller</object>
+    <object>objects\controller_factory</object>
     <object>objects\Col</object>
     <object>objects\object4</object>
     <object>objects\Press_enter</object>
-    <object>objects\player_hit_left</object>
-    <object>objects\zombie</object>
+    <object>objects\Animate</object>
+    <object>objects\music_controller</object>
+    <object>objects\game_restarter</object>
+    <object>objects\death</object>
+    <object>objects\tp_to_next_room</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\Title</room>
     <room>rooms\room0</room>
+    <room>rooms\room4</room>
     <room>rooms\game_over</room>
   </rooms>
   <help>

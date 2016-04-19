@@ -28,6 +28,10 @@
             <string>orientation = 0
 
 atk_timer = 0
+
+life = 50
+
+sound = 0
 </string>
           </argument>
         </arguments>
@@ -113,7 +117,7 @@ if(atk_timer &gt; 0) {
         atk_timer--
 }
     
-if(abs(px - x) &lt;= 300 &amp;&amp; abs(py - y) &lt;= sh * 2) {
+if(abs(px - x) &lt;= 150 &amp;&amp; abs(py - y) &lt;= sh * 2) {
     hspeed = 0
     if(orientation == 0) {
         sprite_index = zombie_attack_left
@@ -122,10 +126,19 @@ if(abs(px - x) &lt;= 300 &amp;&amp; abs(py - y) &lt;= sh * 2) {
     }
     
     if(abs(px - x) &lt;= 150 &amp;&amp; abs(py - y) &lt;= sh &amp;&amp; atk_timer == 0) {
+        if(sound == 0) {
+            sound = audio_play_sound(zombie_attack, 1, true)
+        }
         global.player_damage += 5
         atk_timer = 5
+        instance_create(global.player_x, y + sprite_height/2, animate_hit)
     }
 } else if(abs(px - x) &lt;= 600) {
+    if(sound != 0) {
+        audio_stop_sound(sound)
+        sound = 0
+    }
+
     if(orientation == 0) {
         sprite_index = zombie_walk_left
     } else {
@@ -133,6 +146,10 @@ if(abs(px - x) &lt;= 300 &amp;&amp; abs(py - y) &lt;= sh * 2) {
     }
     hspeed = 3 * orr
 } else {
+    if(sound != 0) {
+        audio_stop_sound(sound)
+        sound = 0
+    }
     hspeed = 0
     if(orientation == 0) {
         sprite_index = zombie_stand_left
@@ -141,6 +158,58 @@ if(abs(px - x) &lt;= 300 &amp;&amp; abs(py - y) &lt;= sh * 2) {
     }
 }
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(life &lt;= 0) {
+    if(sound != 0) {
+        audio_stop_sound(sound)
+        sound = 0
+    }
+    instance_create(x, y, zombie_explode)
+    instance_destroy()
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="9">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>instance_create(x, y, zombie_explode)
+instance_destroy()
 </string>
           </argument>
         </arguments>

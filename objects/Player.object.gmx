@@ -4,7 +4,7 @@
   <solid>-1</solid>
   <visible>-1</visible>
   <depth>1</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>stand_left</maskName>
   <events>
@@ -60,12 +60,175 @@ dash_on_cd = 0
 can_move = 1
 
 global.player_damage = 0
+
+show_shield = 0
+
+shield_sprite = 0
+
+knock_back = 0
+
+global.player = self
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Sound
+
+global.player_atk_sounds = ds_list_create()
+ds_list_add(global.player_atk_sounds, Attack_1, Attack_2, Attack_3, Attack_4, Attack_5)
+ds_list_shuffle(global.player_atk_sounds)
+
+global.player_hit_sounds = ds_list_create()
+ds_list_add(global.player_hit_sounds, Hit_1, Hit_2, Hit_3, Hit_4, Hit_5)
+ds_list_shuffle(global.player_hit_sounds)
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Zombie collision
+
+inst = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, zombie, false, true)
+
+if(inst != noone &amp;&amp; !lock) {
+    damage_player(20)
+    vspeed = -10
+    knock_back = 5
+    lock = 1
+    can_move = false
+}
+    
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Death Collision
+
+inst = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, death, false, true)
+
+if(inst != noone) {
+    life = 0
+}
+    
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// TP Collision
+
+inst = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, tp_to_next_room, false, true)
+
+if(inst != noone &amp;&amp; room_next(room) != -1) {
+    room_goto(room_next(room))
+}
+    
 </string>
           </argument>
         </arguments>
       </action>
     </event>
     <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>// Knock_back
+
+if(knock_back == 1) {
+    knock_back--
+    lock = 0
+    can_move = true
+    hspeed = 0
+} else if(knock_back &gt; 0) {
+    knock_back--
+    if(orientation == 0) {
+        hspeed = 10
+    } else {
+        hspeed = -10
+    }
+    can_move = false
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -96,6 +259,10 @@ if (place_free(x, y+vspeed)) {
 } else {
     move_contact_solid(270, vspeed-1)
     vspeed = 0
+}
+
+if(place_free(x+hspeed, y)) {
+    x += hspeed
 }
 
 if(!place_free(x, y)) {
@@ -338,8 +505,8 @@ if(dash_on_cd &gt; 0) {
             <kind>1</kind>
             <string>// Broadcast coordinates
 
-global.player_x = x
-global.player_y = y
+global.player_x = x + sprite_width/2
+global.player_y = y + sprite_height/2
 </string>
           </argument>
         </arguments>
@@ -386,8 +553,7 @@ global.player_damage = 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(can_move) {
-
+            <string>if(can_move &amp;&amp; knock_back &lt;= 0) {
     orientation = 1
 
     if(!lock) {    
@@ -422,7 +588,7 @@ global.player_damage = 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(can_move) {
+            <string>if(can_move &amp;&amp; knock_back &lt;=0) {
 
     orientation = 0
     if(!lock) {
@@ -460,11 +626,18 @@ global.player_damage = 0
           <argument>
             <kind>1</kind>
             <string>if(!lock) {
-
-    if(orientation = 0) {
-        sprite_index = stand_left
+    if(grounded) {
+        if(orientation = 0) {
+            sprite_index = stand_left
+        } else {
+            sprite_index = stand_right
+        }
     } else {
-        sprite_index = stand_right
+        if(orientation = 0) {
+            sprite_index = jump_left
+        } else {
+            sprite_index = jump_right
+        }
     }
 }
 </string>
@@ -475,21 +648,49 @@ global.player_damage = 0
     <event eventtype="7" enumb="9">
       <action>
         <libid>1</libid>
-        <id>224</id>
-        <kind>0</kind>
+        <id>603</id>
+        <kind>7</kind>
         <userelative>0</userelative>
         <isquestion>0</isquestion>
-        <useapplyto>0</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_another_room</functionname>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
         <codestring></codestring>
         <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
           <argument>
-            <kind>11</kind>
-            <room>game_over</room>
+            <kind>1</kind>
+            <string>
+instance_destroy()
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>audio_play_sound(player_death, 4, false)
+if(orientation) {
+    instance_create(x, y, player_death_right)
+} else {
+    instance_create(x, y, player_death_left)
+}
+</string>
           </argument>
         </arguments>
       </action>
@@ -513,12 +714,17 @@ global.player_damage = 0
             <kind>1</kind>
             <string>draw_self()
 if(shields &gt; 0) {
-    draw_sprite(Shield, 0, x-10, y)
+    if(show_shield &gt; 0) {
+        show_shield--
+        draw_sprite(Shield, 0, x-10, y)
+    }
+    draw_sprite(spr_smp_shield_loop, shield_sprite, x, y+8)
+    shield_sprite = (shield_sprite + 1) % 40
 }
 
-draw_hud()
 draw_shields(shields_display / shields_max)
 draw_life(life_display / life_max)
+draw_hud()
 </string>
           </argument>
         </arguments>
@@ -546,6 +752,7 @@ draw_life(life_display / life_max)
     can_move = 0
     dash_count = 10
     button_lock_z = 1
+    audio_play_sound(Charge, 4, false)
 }
 </string>
           </argument>
@@ -599,13 +806,15 @@ draw_life(life_display / life_max)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(!place_free(x, y+2) &amp;&amp; !lock) {
+            <string>if(!place_free(x, y+2)) {
     vspeed = -20
     
-    if(orientation == 0) {
-        sprite_index = jump_left
-    } else {
-        sprite_index = jump_right
+    if(!lock) {
+        if(orientation == 0) {
+            sprite_index = jump_left
+        } else {
+            sprite_index = jump_right
+        }
     }
 }
 </string>
@@ -654,6 +863,10 @@ draw_life(life_display / life_max)
           <argument>
             <kind>1</kind>
             <string>button_lock_z = 0
+
+if(dash_count &gt; 5) {
+    dash_count = 5
+}
 </string>
           </argument>
         </arguments>
