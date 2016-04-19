@@ -29,7 +29,7 @@
 shields = 100
 life_display = 200
 shields_display = 100
-display_update_rate = 10
+display_update_rate = 3
 
 orientation = 1
 

@@ -3,7 +3,9 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <NewExtensions/>
+  <NewExtensions>
+    <extension index="0">extensions\Sci-fi Graphics Mega Pack</extension>
+  </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprites name="hud">
@@ -28,14 +30,115 @@
       <sprite>sprites\hit_right</sprite>
       <sprite>sprites\Shield</sprite>
     </sprites>
+    <sprites name="zombie">
+      <sprite>sprites\zombie_walk_left</sprite>
+      <sprite>sprites\zombie_walk_right</sprite>
+      <sprite>sprites\zombie_attack_left</sprite>
+      <sprite>sprites\zombie_attack_right</sprite>
+      <sprite>sprites\zombie_death</sprite>
+      <sprite>sprites\zombie_stand_left</sprite>
+      <sprite>sprites\zombie_stand_right</sprite>
+    </sprites>
     <sprite>sprites\Collision</sprite>
     <sprite>sprites\press_enter_to_start</sprite>
     <sprite>sprites\sprite12</sprite>
-    <sprites name="zombie">
-      <sprite>sprites\zombie_walk</sprite>
-      <sprite>sprites\zombie_attack</sprite>
-      <sprite>sprites\zombie_death</sprite>
-      <sprite>sprites\zombie_stand</sprite>
+    <sprites name="Sci-fi Mega Pack">
+      <sprites name="Celestials">
+        <sprite>sprites\spr_smp_moon_1</sprite>
+        <sprite>sprites\spr_smp_moon_2</sprite>
+        <sprite>sprites\spr_smp_moon_3</sprite>
+        <sprite>sprites\spr_smp_star</sprite>
+        <sprite>sprites\spr_smp_planet_5</sprite>
+        <sprite>sprites\spr_smp_planet_4</sprite>
+        <sprite>sprites\spr_smp_planet_3</sprite>
+        <sprite>sprites\spr_smp_planet_2</sprite>
+        <sprite>sprites\spr_smp_planet_1</sprite>
+        <sprite>sprites\spr_smp_galaxy</sprite>
+        <sprite>sprites\spr_smp_asteroid_large</sprite>
+        <sprite>sprites\spr_smp_asteroid_medium</sprite>
+        <sprite>sprites\spr_smp_asteroid_small</sprite>
+        <sprite>sprites\spr_smp_asteroid_tiny_1</sprite>
+        <sprite>sprites\spr_smp_asteroid_tiny_2</sprite>
+        <sprite>sprites\spr_smp_asteroid_tiny_3</sprite>
+        <sprite>sprites\spr_smp_asteroid_tiny_4</sprite>
+        <sprite>sprites\spr_smp_asteroid_tiny_5</sprite>
+      </sprites>
+      <sprites name="Spaceships">
+        <sprite>sprites\spr_smp_spaceship_freighter_6</sprite>
+        <sprite>sprites\spr_smp_spaceship_freighter_5</sprite>
+        <sprite>sprites\spr_smp_spaceship_freighter_4</sprite>
+        <sprite>sprites\spr_smp_spaceship_freighter_3</sprite>
+        <sprite>sprites\spr_smp_spaceship_freighter_2</sprite>
+        <sprite>sprites\spr_smp_spaceship_freighter_1</sprite>
+        <sprite>sprites\spr_smp_spaceship_battleship_3</sprite>
+        <sprite>sprites\spr_smp_spaceship_battleship_2</sprite>
+        <sprite>sprites\spr_smp_spaceship_battleship_1</sprite>
+        <sprite>sprites\spr_smp_spaceship_fighter_6</sprite>
+        <sprite>sprites\spr_smp_spaceship_fighter_5</sprite>
+        <sprite>sprites\spr_smp_spaceship_fighter_4</sprite>
+        <sprite>sprites\spr_smp_spaceship_fighter_3</sprite>
+        <sprite>sprites\spr_smp_spaceship_fighter_2</sprite>
+        <sprite>sprites\spr_smp_spaceship_fighter_1</sprite>
+        <sprite>sprites\spr_smp_spaceship_unspecified_1</sprite>
+        <sprite>sprites\spr_smp_spaceship_unspecified_2</sprite>
+        <sprite>sprites\spr_smp_spaceship_unspecified_3</sprite>
+        <sprite>sprites\spr_smp_spaceship_drone</sprite>
+      </sprites>
+      <sprites name="Spaceship Extras">
+        <sprites name="Turrets">
+          <sprite>sprites\spr_smp_turret_laser</sprite>
+          <sprite>sprites\spr_smp_turret_plasma</sprite>
+          <sprite>sprites\spr_smp_turret_plain</sprite>
+          <sprite>sprites\spr_smp_turret_rocket</sprite>
+        </sprites>
+        <sprites name="Projectiles">
+          <sprite>sprites\spr_smp_projectile_laser</sprite>
+          <sprite>sprites\spr_smp_projectile_plasma</sprite>
+          <sprite>sprites\spr_smp_projectile_plain</sprite>
+          <sprite>sprites\spr_smp_projectile_rocket</sprite>
+          <sprite>sprites\spr_smp_projectile_missile</sprite>
+          <sprite>sprites\spr_smp_projectile_missile_plain</sprite>
+          <sprite>sprites\spr_smp_projectile_missile_agile</sprite>
+          <sprite>sprites\spr_smp_projectile_bomb</sprite>
+          <sprite>sprites\spr_smp_projectile_dart</sprite>
+        </sprites>
+        <sprites name="Shield">
+          <sprite>sprites\spr_smp_shield_engage</sprite>
+          <sprite>sprites\spr_smp_shield_beam</sprite>
+          <sprite>sprites\spr_smp_shield_loop</sprite>
+          <sprite>sprites\spr_smp_shield_directed</sprite>
+        </sprites>
+        <sprite>sprites\spr_smp_oxygen_exhaust</sprite>
+        <sprite>sprites\spr_smp_afterburner_2</sprite>
+        <sprite>sprites\spr_smp_afterburner_1</sprite>
+      </sprites>
+      <sprites name="Floating Objects">
+        <sprite>sprites\spr_smp_floating_ore_aqua</sprite>
+        <sprite>sprites\spr_smp_floating_ore_red</sprite>
+        <sprite>sprites\spr_smp_floating_ore_yellow</sprite>
+        <sprite>sprites\spr_smp_floating_ore_green</sprite>
+        <sprite>sprites\spr_smp_floating_ore_pink</sprite>
+        <sprite>sprites\spr_smp_floating_stone_frozen</sprite>
+        <sprite>sprites\spr_smp_floating_stone</sprite>
+        <sprite>sprites\spr_smp_floating_container</sprite>
+        <sprite>sprites\spr_smp_floating_container_special</sprite>
+        <sprite>sprites\spr_smp_floating_chunks</sprite>
+      </sprites>
+      <sprites name="Miscellaneous">
+        <sprite>sprites\spr_smp_billboards_right</sprite>
+        <sprite>sprites\spr_smp_billboards_right_diagonal</sprite>
+        <sprite>sprites\spr_smp_billboards_left_diagonal</sprite>
+        <sprite>sprites\spr_smp_billboards_left</sprite>
+        <sprite>sprites\spr_smp_droid</sprite>
+      </sprites>
+      <sprites name="Stations">
+        <sprite>sprites\spr_smp_station_fuel</sprite>
+        <sprite>sprites\spr_smp_station_fuel_animation</sprite>
+        <sprite>sprites\spr_smp_station_shop_1</sprite>
+        <sprite>sprites\spr_smp_station_shop_2</sprite>
+        <sprite>sprites\spr_smp_station_shop_exterior</sprite>
+        <sprite>sprites\spr_smp_station_table</sprite>
+      </sprites>
     </sprites>
   </sprites>
   <backgrounds name="background">
@@ -45,6 +148,17 @@
     <background>background\background3</background>
     <background>background\background4</background>
     <background>background\background5</background>
+    <backgrounds name="Sci-fi Mega Pack">
+      <background>background\bg_smp_floor_tiles</background>
+      <background>background\bg_smp_wall_tiles</background>
+      <background>background\bg_smp_nebula_1</background>
+      <background>background\bg_smp_nebula_2</background>
+      <background>background\bg_smp_nebula_3</background>
+      <background>background\bg_smp_nebula_4</background>
+      <background>background\bg_smp_garbage_tiles</background>
+      <background>background\bg_smp_misc_tiles</background>
+      <background>background\bg_smp_stars</background>
+    </backgrounds>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
