@@ -156,20 +156,27 @@
       <sprite>sprites\zombie_stand_left</sprite>
       <sprite>sprites\zombie_stand_right</sprite>
     </sprites>
+    <sprites name="hydra">
+      <sprite>sprites\walk</sprite>
+      <sprite>sprites\attack</sprite>
+      <sprite>sprites\stand</sprite>
+      <sprite>sprites\still</sprite>
+    </sprites>
     <sprite>sprites\Collision</sprite>
+    <sprite>sprites\Collision3x3</sprite>
     <sprite>sprites\press_enter_to_start</sprite>
     <sprite>sprites\sprite12</sprite>
     <sprite>sprites\hit</sprite>
     <sprite>sprites\death_sprite</sprite>
     <sprite>sprites\tp</sprite>
+    <sprite>sprites\relocate</sprite>
+    <sprite>sprites\sensor11x5</sprite>
+    <sprite>sprites\Elevator</sprite>
+    <sprite>sprites\elevator2</sprite>
+    <sprite>sprites\ball</sprite>
+    <sprite>sprites\sprite122</sprite>
   </sprites>
   <backgrounds name="background">
-    <background>background\background0</background>
-    <background>background\background1</background>
-    <background>background\background2</background>
-    <background>background\background3</background>
-    <background>background\background4</background>
-    <background>background\background5</background>
     <backgrounds name="Sci-fi Mega Pack">
       <background>background\bg_smp_floor_tiles</background>
       <background>background\bg_smp_wall_tiles</background>
@@ -181,7 +188,15 @@
       <background>background\bg_smp_misc_tiles</background>
       <background>background\bg_smp_stars</background>
     </backgrounds>
+    <background>background\background0</background>
+    <background>background\background1</background>
+    <background>background\background2</background>
+    <background>background\background3</background>
+    <background>background\background4</background>
+    <background>background\background5</background>
+    <background>background\background18</background>
     <background>background\background15</background>
+    <background>background\background16</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -192,23 +207,31 @@
     <script>scripts\damage_player.gml</script>
     <script>scripts\damage.gml</script>
     <script>scripts\grounded.gml</script>
+    <script>scripts\shoot_one.gml</script>
+    <script>scripts\shoot_three.gml</script>
+    <script>scripts\shoot_nine.gml</script>
   </scripts>
   <objects name="objects">
     <objects name="Player">
       <object>objects\Player</object>
       <object>objects\player_hit_right</object>
       <object>objects\player_hit_left</object>
-      <object>objects\animate_hit</object>
       <object>objects\player_death_left</object>
       <object>objects\player_death_right</object>
     </objects>
     <objects name="Enemies">
       <object>objects\zombie</object>
       <object>objects\zombie_explode</object>
+      <object>objects\hydra</object>
     </objects>
+    <object>objects\animate_explosion</object>
+    <object>objects\animate_big_explosion</object>
+    <object>objects\animate_hit</object>
+    <object>objects\animate_hit_large</object>
     <object>objects\controller</object>
     <object>objects\controller_factory</object>
     <object>objects\Col</object>
+    <object>objects\door</object>
     <object>objects\object4</object>
     <object>objects\Press_enter</object>
     <object>objects\Animate</object>
@@ -216,12 +239,19 @@
     <object>objects\game_restarter</object>
     <object>objects\death</object>
     <object>objects\tp_to_next_room</object>
+    <object>objects\player_relocator</object>
+    <object>objects\Sensor</object>
+    <object>objects\elevator_obj</object>
+    <object>objects\projectile</object>
+    <object>objects\hydra_death</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\Title</room>
     <room>rooms\room0</room>
     <room>rooms\room4</room>
+    <room>rooms\room5</room>
     <room>rooms\game_over</room>
+    <room>rooms\Victory</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

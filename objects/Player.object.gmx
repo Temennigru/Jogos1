@@ -151,6 +151,38 @@ if(inst != noone &amp;&amp; !lock) {
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>// Projectile collision
+
+inst = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, projectile, false, true)
+
+if(inst != noone &amp;&amp; !lock) {
+    damage_player(60)
+    vspeed = -10
+    knock_back = 5
+    lock = 1
+    can_move = false
+}
+    
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>// Death Collision
 
 inst = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, death, false, true)
@@ -186,7 +218,7 @@ inst = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, tp_to_n
 if(inst != noone &amp;&amp; room_next(room) != -1) {
     room_goto(room_next(room))
 }
-    
+
 </string>
           </argument>
         </arguments>
@@ -839,7 +871,8 @@ draw_hud()
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>damage_player(30)
+            <string>
+    //room_goto(room_next(room))
 </string>
           </argument>
         </arguments>

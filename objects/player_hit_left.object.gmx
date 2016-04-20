@@ -52,7 +52,7 @@
 
 var d = dmg
 
-inst = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, zombie, false, true)
+inst = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, hydra, false, true)
 
 if(inst != noone) {
     audio_play_sound(global.player_hit_sounds[|0], 4, false)
