@@ -235,7 +235,7 @@ if(to_shoot &gt; 0 &amp;&amp; alarm[1] &lt; 0) {
 }
 
 if(life &lt;= 0) {
-    var inst = instance_create(x, y, hydra_death)
+    var inst = instance_create(x, y, hydra_death);
     inst.image_xscale = image_xscale
     inst.image_yscale = image_yscale
     instance_destroy()
